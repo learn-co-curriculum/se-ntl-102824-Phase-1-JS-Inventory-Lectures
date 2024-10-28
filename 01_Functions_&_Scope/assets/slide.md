@@ -14,7 +14,7 @@ title: "P1L1 - Functions & Scope slides"
 
 <div style="display: flex; flex-direction: row">
   <div style="width: 30%">
-    <div style='position:relative; padding-bottom:calc(75.00% + 44px)'><iframe src='https://gfycat.com/ifr/SafeGloriousIslandcanary' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div><p> <a href="https://gfycat.com/safegloriousislandcanary-international-man-of-mystery-austin-powers">via Gfycat</a></p>
+    <iframe src="https://giphy.com/embed/UtKQmptld4nXOTBBdQ" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/cbc-schitts-creek-UtKQmptld4nXOTBBdQ">via GIPHY</a></p>
   </div>
   <div style="width: 70%">
 
@@ -114,6 +114,11 @@ Extension | Description |
 
 ---
 
+#### Visualizing Scope
+![Scope Castle Visual Metaphor](./scope-castle.png)
+
+---
+
 ### Callbacks and HOF
 
 ![Callbacks pt1](./callbacks-pt-1.drawio.svg)
@@ -156,8 +161,8 @@ Function | Parameters | Behavior
 
 Resource | Location | Description
 ---------|----------|---------
- Starter Code | [GitHub Repo](https://github.com/learn-co-students/SENG-LIVE-101022-Phase-1-JS) | separate folder for each day's lecture contains the code and any related assets
- Recordings | [Google Sheet](https://docs.google.com/spreadsheets/d/139yeG9joHfaP8hT44z2iSLMv5ScLSc86ZKZ51csIfHo/edit#gid=0) | Links to the starter & solution code for each days video along with the video link and a notetaking doc you can use for practice 
+ Starter Code | [GitHub Repo](https://github.com/learn-co-students/se-west-042224-Phase-1-JavaScript-Inventory-Tool) | separate folder for each day's lecture contains the code and any related assets
+ Recordings | [Google Sheet](https://docs.google.com/spreadsheets/d/1Wbw7L5muVIcYXOJ9Vo50FVKov5imoUva2O-Q7rh_U_s/edit?usp=sharing) | Links to the starter & solution code for each days video along with the video link and a notetaking doc you can use for practice 
 
 </div>
 
