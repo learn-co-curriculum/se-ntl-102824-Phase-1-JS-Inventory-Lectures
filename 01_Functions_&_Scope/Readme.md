@@ -11,7 +11,7 @@
 - [ ] Grasp the relationship betweenDescribe what a callback and higher-order functions is
 
 <p align="center">
-    <img src="../assets/functions.jpeg" width="250" height="250">
+    <img src="./assets/functions.jpeg" width="250" height="250">
 </p>
 
 
