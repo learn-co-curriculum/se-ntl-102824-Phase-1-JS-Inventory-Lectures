@@ -4,7 +4,7 @@ header {
   opacity: 0.8;
 }
 
-header div h1, header div h2 {
+header h1, header h2 {
   text-align: center;
   color: aliceblue;
   text-shadow: 2px 4px #252525;
@@ -63,7 +63,8 @@ button, [type="submit"] {
 
 footer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content:space-around;
 }
 
 footer div p {
