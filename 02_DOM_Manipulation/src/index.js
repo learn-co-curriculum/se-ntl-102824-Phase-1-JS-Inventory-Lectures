@@ -5,6 +5,12 @@ function formatPrice(price) {
   return '$' + Number.parseFloat(price).toFixed(2);
 }
 
+//* Create a function that uses a selector to get the header and add the bookStore name as its text content
+// Renders Header
+
+//* Create a function that grabs all the divs from the footer and add the book store name, address, hours and/or phone number
+// Renders Footer
+
 // create a function called renderBook(book)
 // it will take a book object as an argument
 // and create the html struture for rendering 
@@ -20,4 +26,6 @@ function formatPrice(price) {
   //   <button>Delete</button>
   // </li>
 
-  
+  // using innerHTML is shorter, but comes with pitfalls and potential security issues
+
+  // Organize function calls
