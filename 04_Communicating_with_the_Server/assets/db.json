@@ -1,6 +1,10 @@
 {
   "posts": [
     { "title": "JSON-server is really cool" },
-    { "title": "JSON-server allows you to mock an API server by creating a single file!"}
-  ]
+    {
+      "title": "JSON-server allows you to mock an API server by creating a single file!"
+    },
+    { "title": "Boo!" }
+  ],
+  "monsters": [{ "type": "vampire" }, { "type": "werewolf" }]
 }
