@@ -1,6 +1,9 @@
 //////////////////////////////////////////////////////////
 // Fetch Data & Call render functions to populate the DOM
 //////////////////////////////////////////////////////////
+
+const booksUrl = "http://localhost:3000/books"
+
 getJSON('http://localhost:3000/stores')
   .then((stores) => {
     // this populates a select tag with options so we can switch between stores on our web page
@@ -14,7 +17,7 @@ getJSON('http://localhost:3000/stores')
   });
 
 // load all the books and render them
-getJSON("http://localhost:3000/books")
+getJSON(booksUrl)
   .then((books) => {
     books.forEach(book => renderBook(book))
   })
@@ -205,8 +208,8 @@ window.addEventListener('keydown', (e) => {
 //   imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg'
 // }
 // we can use a book as an argument for renderBook!  This will add the book's info to the webpage.
-bookForm.addEventListener('submit', (e) => { 
-  e.preventDefault();
+function handleBookSubmit(e){
+  e.preventDefault()
   // pull the info for the new book out of the form
   const book = {
     title: e.target.title.value,
@@ -216,12 +219,63 @@ bookForm.addEventListener('submit', (e) => {
     inventory: Number(e.target.inventory.value),
     imageUrl: e.target.imageUrl.value
   }
-  // pass the info as an argument to renderBook for display!
-  renderBook(book);
-  // 1. Add the ability to perist the book to the database when the form is submitted. When this works, we should still see the book that is added to the DOM on submission when we refresh the page.
+  // send POST fetch to persist data on server
+  // const configObj = {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(book)
+  // }
 
+  postJSON(booksUrl, book)
+    .then(renderBook)
+    .catch(renderError)
+
+  // fetch("http://localhost:3000/books", configObj) // optimistic stops with this line
+  //   .then(response => { // handle the response enable pessimistic rendering
+  //     if (response.ok) {
+  //       return response.json()}// parse the response into JSON
+  //     else {
+  //       throw (response.statusText)
+  //     }
+  //   })
+  //   .then(newBookJSON => renderBook(newBookJSON)) // pessimistic rendering
+  //   .catch(error => renderError(error))
+
+  // pass the info as an argument to renderBook for display!
+  // renderBook(book); // optimistic rendering
+
+  // 1. Add the ability to perist the book to the database when the form is submitted. When this works, we should still see the book that is added to the DOM on submission when we refresh the page.
+  
   e.target.reset();
-})
+}
+
+function handleStoreSubmit(e){
+  e.preventDefault()
+  const newStoreInputs = {
+    name: e.target.name.value,
+    location: e.target.location.value,
+    number: Number(e.target.number.value),
+    address: e.target.address.value,
+    hours: e.target.hours.value
+  }
+  fetch("http://localhost:3000/stores", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newStoreInputs)
+  })
+    .then(response => response.json()) // TODO: add error handling
+    .then(newStoreObj => {
+      addSelectOptionForStore(newStoreObj)
+    })
+
+}
+
+bookForm.addEventListener('submit', handleBookSubmit)
+storeForm.addEventListener('submit', handleStoreSubmit)
 
 // 2. Hook up the new Store form so it that it works to add a new store to our database and also to the DOM (as an option within the select tag)
 
@@ -235,6 +289,15 @@ fillIn(storeForm, {
   number: "555-555-5555",
   address: "555 Shangri-La",
   hours: "Monday - Friday 9am - 6pm"
+})
+
+fillIn(bookForm, {
+  title: "Designing Data-Intenseive Applications",
+  author: "Martin Kleppmann",
+  price: 22.2,
+  imageUrl:
+    "https://m.media-amazon.com/images/I/51ZSpMl1-LL._SX379_BO1,204,203,200_.jpg",
+  inventory: 1,
 })
 
 

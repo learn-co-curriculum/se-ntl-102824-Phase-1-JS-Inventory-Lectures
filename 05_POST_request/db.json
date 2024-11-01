@@ -23,6 +23,22 @@
       "number": 5554443333,
       "name": "Tech BooksRus",
       "hours": "Thursday - Saturday 11am - 7pm"
+    },
+    {
+      "id": 4,
+      "location": "Chicago",
+      "address": "1212 Mockingbird Lane, Chicgo IL",
+      "number": 7778889999,
+      "name": "Windy City Tech Emporium",
+      "hours": "Thursday - Saturday 11am - 7pm"
+    },
+    {
+      "name": "BooksRUs",
+      "location": "LaLaLand",
+      "number": null,
+      "address": "555 Shangri-La",
+      "hours": "Monday - Friday 9am - 6pm",
+      "id": 5
     }
   ],
   "books": [
@@ -135,6 +151,24 @@
       ],
       "inventory": 20,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/41oYsXjLvZL._SY344_BO1,204,203,200_.jpg"
+    },
+    {
+      "title": "Designing Data-Intenseive Applications",
+      "author": "Martin Kleppmann",
+      "price": 24,
+      "reviews": [],
+      "inventory": 1,
+      "imageUrl": "https://m.media-amazon.com/images/I/51ZSpMl1-LL._SX379_BO1,204,203,200_.jpg",
+      "id": 8
+    },
+    {
+      "title": "Designing Data-Intenseive Applications",
+      "author": "Martin Kleppmann",
+      "price": 35,
+      "reviews": [],
+      "inventory": 1,
+      "imageUrl": "https://m.media-amazon.com/images/I/51ZSpMl1-LL._SX379_BO1,204,203,200_.jpg",
+      "id": 9
     }
   ]
 }
