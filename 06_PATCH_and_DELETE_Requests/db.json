@@ -30,28 +30,18 @@
       "id": 1,
       "title": "Eloquent JavaScript: A Modern Introduction to Programming",
       "author": "Marjin Haverbeke",
-      "price": 10,
-      "reviews": [
-        {
-          "userID": 1,
-          "content": "Good book, but not great for new coders"
-        }
-      ],
-      "inventory": "15",
+      "price": "10",
+      "reviews": [],
+      "inventory": 11,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg"
     },
     {
       "id": 2,
       "title": "JavaScript & JQuery: Interactive Front-End Web Development",
       "author": "Jon Duckett",
-      "price": 45.75,
-      "reviews": [
-        {
-          "userID": 15,
-          "content": "good way to learn JQuery"
-        }
-      ],
-      "inventory": 2,
+      "price": "45.75",
+      "reviews": [],
+      "inventory": 25,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/31SRWF+LkKL._SX398_BO1,204,203,200_.jpg"
     },
     {
@@ -76,18 +66,9 @@
       "id": 4,
       "title": "JavaScript: The Definitive Guide",
       "author": "David Flanagan",
-      "price": 25.5,
-      "reviews": [
-        {
-          "userID": 44,
-          "content": "Great intro to js book"
-        },
-        {
-          "userID": 350,
-          "content": "It really is the Definitive guide"
-        }
-      ],
-      "inventory": 0,
+      "price": "25.54",
+      "reviews": [],
+      "inventory": 11,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/51wijnc-Y8L._SX379_BO1,204,203,200_.jpg"
     },
     {
@@ -116,24 +97,15 @@
         }
       ],
       "inventory": 5,
-      "imageUrl": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQyf6xSyTHc7a8mx17ikh6GeTohc88Hn0UgkN-RNF-h4iOwVlkW"
+      "imageUrl": "https://m.media-amazon.com/images/I/81RrmtovblL._SY342_.jpg"
     },
     {
       "id": 7,
       "title": "Cracking the Coding Interview",
       "author": "Gayle Laakmann McDowell",
-      "price": 49.95,
-      "reviews": [
-        {
-          "userID": 99,
-          "content": "One of the most helpful books for taking on the tech interview"
-        },
-        {
-          "userID": 20,
-          "content": "Great but I just wish it was in JavaScript instead of Java"
-        }
-      ],
-      "inventory": 20,
+      "price": "50.05",
+      "reviews": [],
+      "inventory": 55,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/41oYsXjLvZL._SY344_BO1,204,203,200_.jpg"
     }
   ]

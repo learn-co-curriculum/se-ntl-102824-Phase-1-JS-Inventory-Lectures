@@ -50,7 +50,6 @@ function renderStoreSelectionOptions(stores) {
   });
 }
 
-
 function addSelectOptionForStore(store) {
   const option = document.createElement("option");
   // the option value will appear within e.target.value
@@ -60,77 +59,99 @@ function addSelectOptionForStore(store) {
   storeSelector.append(option);
 }
 
-// function: renderBook(book)
-// --------------------------
-// accepts a book object as an argument and creates
-// an li something like this:
-// <li class="list-li">
-//   <h3>Eloquent JavaScript</h3>
-//   <p>Marjin Haverbeke</p>
-//   <p>$10.00</p>
-//   <img src="https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg" alt="Eloquent JavaScript cover"/>
-// </li>
 // appends the li to the ul#book-list in the DOM
+const bookList = document.querySelector("#book-list");
 function renderBook(book) {
-  const li = document.createElement("li");
-  li.className = "list-li";
-
-  const h3 = document.createElement("h3");
-  h3.textContent = book.title;
-  li.append(h3);
-
-  const pAuthor = document.createElement("p");
-  pAuthor.textContent = book.author;
-  li.append(pAuthor);
-
-  const pPrice = document.createElement("p");
-  pPrice.textContent = formatPrice(book.price);
-  li.append(pPrice);
-
-  const inventoryInput = document.createElement("input");
-  inventoryInput.type = "number";
-  inventoryInput.className = "inventory-input";
-  inventoryInput.value = book.inventory;
-  inventoryInput.min = 0;
-  li.append(inventoryInput);
-
-  const pStock = document.createElement("p");
-  pStock.className = "grey";
-  if (book.inventory === 0) {
-    pStock.textContent = "Out of stock";
-  } else if (book.inventory < 3) {
-    pStock.textContent = "Only a few left!";
+  if (bookEditMode) {
+    const li = document.querySelector(`li[data-book-id="${book.id}"]`);
+    const next = li.nextSibling;
+    const prev = li.previousSibling;
+    li.remove();
+    const newli = createBookLi(book);
+    next
+      ? bookList.insertBefore(newli, next)
+      : prev.after(newli);
   } else {
-    pStock.textContent = "In stock";
+    const newli = createBookLi(book);
+    bookList.append(newli);
   }
-  li.append(pStock);
 
-  const img = document.createElement("img");
-  img.src = book.imageUrl;
-  img.alt = `${book.title} cover`;
-  li.append(img);
+  function createBookLi(book) {
+    const li = document.createElement("li");
+    li.dataset.bookId = book.id;
+    li.className = "list-li";
 
-  const btn = document.createElement("button");
-  btn.textContent = "Delete";
+    const h3 = document.createElement("h3");
+    h3.textContent = book.title;
+    li.append(h3);
 
-  btn.addEventListener("click", (e) => {
-    // fetch(`http://localhost:3000/books/${book.id}`, { method: "DELETE" }) // TODO: add delete fetch to request_helpers
-    //   .then((res) => {
-    //     if (res.ok) {
-    //       li.remove(); // pessimistic rendering
-    //     } else {
-    //       throw res.statusText;
-    //     }
-    //   })
-    deleteJSON(`http://localhost:3000/books/${book.id}`)
-      .then(message => li.remove())
-      .catch(renderError);
-    // li.remove(); // optimistic rendering
-  });
-  li.append(btn);
+    const pAuthor = document.createElement("p");
+    pAuthor.textContent = book.author;
+    li.append(pAuthor);
 
-  document.querySelector("#book-list").append(li);
+    const pPrice = document.createElement("p");
+    pPrice.textContent = formatPrice(book.price);
+    li.append(pPrice);
+
+    const inventoryInput = document.createElement("input");
+    inventoryInput.type = "number";
+    inventoryInput.className = "inventory-input";
+    inventoryInput.value = book.inventory;
+    inventoryInput.min = 0;
+    li.append(inventoryInput);
+
+    const pStock = document.createElement("p");
+    pStock.className = "grey";
+    if (book.inventory === 0) {
+      pStock.textContent = "Out of stock";
+    } else if (book.inventory < 3) {
+      pStock.textContent = "Only a few left!";
+    } else {
+      pStock.textContent = "In stock";
+    }
+    li.append(pStock);
+
+    const img = document.createElement("img");
+    img.src = book.imageUrl;
+    img.alt = `${book.title} cover`;
+    li.append(img);
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.addEventListener("click", () => {
+      handleBookEdit(book);
+    });
+    li.append(editBtn);
+
+    const btn = document.createElement("button");
+    btn.textContent = "Delete";
+
+    btn.addEventListener("click", (e) => {
+      // fetch(`http://localhost:3000/books/${book.id}`, { method: "DELETE" }) // TODO: add delete fetch to request_helpers
+      //   .then((res) => {
+      //     if (res.ok) {
+      //       li.remove(); // pessimistic rendering
+      //     } else {
+      //       throw res.statusText;
+      //     }
+      //   })
+      deleteJSON(`http://localhost:3000/books/${book.id}`)
+        .then((message) => li.remove())
+        .catch(renderError);
+      // li.remove(); // optimistic rendering
+    });
+    li.append(btn);
+    return li;
+  }
 }
+
+// function updateBook(book) { // start of stand-alone book update function, replaced by edit control-flow in renderBook()
+//   const li = document.querySelector(`li[data-book-id="${book.id}"]`);
+
+//   console.log("🚀 ~ updateBook ~ li:", li);
+//   li.querySelector("h3").textContent = book.title;
+//   li.querySelectorAll("p").forEach();
+// }
 
 function renderError(error) {
   const main = document.querySelector("main");
@@ -161,9 +182,18 @@ function fillIn(form, data) {
 // New Function to populate the store form with a store's data to update
 function populateStoreEditForm(store) {
   const form = document.querySelector("#store-form");
-  form.dataset.storeId = store.id
+  form.dataset.storeId = store.id;
   fillIn(form, store);
   showStoreForm();
+}
+
+function handleBookEdit(book) {
+  console.log("🚀 ~ handleBookEdit ~ book:", book)
+  bookForm.dataset.bookId = book.id;
+  bookForm.querySelector("input[type='submit']").value = "UPDATE BOOK"
+  fillIn(bookForm, book);
+  showBookForm();
+  bookEditMode = true;
 }
 
 function formatPrice(price) {
@@ -179,6 +209,14 @@ const bookForm = document.querySelector("#book-form");
 let bookFormVisible = false;
 
 function toggleBookForm() {
+  fillIn(bookForm, {
+    title: "Designing Data-Intenseive Applications",
+    author: "Martin Kleppmann",
+    price: 22.2,
+    imageUrl:
+      "https://m.media-amazon.com/images/I/51ZSpMl1-LL._SX379_BO1,204,203,200_.jpg",
+    inventory: 1,
+  });
   if (bookFormVisible) {
     hideBookForm();
   } else {
@@ -199,15 +237,6 @@ function hideBookForm() {
 }
 
 toggleBookFormButton.addEventListener("click", toggleBookForm);
-
-fillIn(bookForm, {
-  title: "Designing Data-Intenseive Applications",
-  author: "Martin Kleppmann",
-  price: 22.2,
-  imageUrl:
-    "https://m.media-amazon.com/images/I/51ZSpMl1-LL._SX379_BO1,204,203,200_.jpg",
-  inventory: 1,
-});
 
 // Store Form button
 const toggleStoreFormButton = document.querySelector("#toggleStoreForm");
@@ -248,7 +277,7 @@ window.addEventListener("keydown", (e) => {
     hideBookForm();
   }
 });
-
+let bookEditMode = false;
 // book form submit
 bookForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -261,14 +290,27 @@ bookForm.addEventListener("submit", (e) => {
     inventory: Number(e.target.inventory.value),
     imageUrl: e.target.imageUrl.value,
   };
+  if (bookEditMode) {
+    patchJSON(
+      `http://localhost:3000/books/${e.target.dataset.bookId}`,
+      book
+    ).then((updatedBook) => {
+      renderBook(updatedBook);
+      bookEditMode = false;
+      hideBookForm();
+      bookForm.querySelector("button").textContent = "ADD BOOK"
+      e.target.reset();
+    });
+  } else {
+    postJSON("http://localhost:3000/books", book)
+      .then((book) => {
+        renderBook(book);
+        e.target.reset();
+      })
+      .catch(renderError);
+  }
 
   // pessimistic rendering here:
-  postJSON("http://localhost:3000/books", book)
-    .then((book) => {
-      renderBook(book);
-      e.target.reset();
-    })
-    .catch(renderError);
 });
 
 // store form submit
@@ -285,13 +327,16 @@ storeForm.addEventListener("submit", (e) => {
 
   if (storeEditMode) {
     // ✅ write code for updating the store here
-    patchJSON(`http://localhost:3000/stores/${e.target.dataset.storeId}`, store)
-      .then(updatedStore => {
-        renderHeader(updatedStore)
-        renderFooter(updatedStore)
-        storeSelector.querySelector(`option[value="${updatedStore.id}"]`)
-          .textContent = updatedStore.name
-      })
+    patchJSON(
+      `http://localhost:3000/stores/${e.target.dataset.storeId}`,
+      store
+    ).then((updatedStore) => {
+      renderHeader(updatedStore);
+      renderFooter(updatedStore);
+      storeSelector.querySelector(
+        `option[value="${updatedStore.id}"]`
+      ).textContent = updatedStore.name;
+    });
   } else {
     postJSON("http://localhost:3000/stores", store)
       .then(addSelectOptionForStore)
