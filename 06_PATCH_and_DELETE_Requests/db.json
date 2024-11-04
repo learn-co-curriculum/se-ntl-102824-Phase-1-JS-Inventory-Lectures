@@ -4,8 +4,8 @@
       "id": 1,
       "location": "Seattle",
       "address": "333 st ne Seattle wa 99999",
-      "number": 9999999999,
-      "name": "Easley's Technical Books",
+      "number": "123445678",
+      "name": "Easley's Technical Books & Coffee",
       "hours": "Monday - Friday 9am - 6pm"
     },
     {
